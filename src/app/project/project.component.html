@@ -1,0 +1,29 @@
+<div *ngIf='error'>{{ error }}</div>
+<div class="container">
+<div class="center-block" *ngFor="let proj of projectArray">
+  {{ proj['name'] }}
+  <!-- Can't sanitize DOM
+  <br/>
+  <iframe class="embed-responsive" width="560" height="315" src="{{ proj['demoVideo']}}" 
+  title="YouTube video player" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+  allowfullscreen>
+  </iframe> -->
+  <br/>
+  {{ proj['stack'] }}
+  <br/>
+  {{ proj['problem'] }}
+  <br/>
+  {{ proj['solution'] }}
+  <br/>
+  <!-- <a href="{{ proj['demoVideo']}}" target="_new">Video Link</a> -->
+  <div *ngIf="proj['openSource']">
+     <a href="{{ proj['repoLink'] }}" target="_new">Repo Link</a>
+  </div>
+  <div *ngIf="!proj['openSource']">
+    <em>This project is not open source</em>
+  </div>
+  <hr class="project-break"/>
+</div>
+</div>
