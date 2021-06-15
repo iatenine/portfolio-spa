@@ -1,29 +1,57 @@
-<div *ngIf='error'>{{ error }}</div>
-<div class="container">
-<div class="center-block" *ngFor="let proj of projectArray">
-  {{ proj['name'] }}
-  <!-- Can't sanitize DOM
-  <br/>
-  <iframe class="embed-responsive" width="560" height="315" src="{{ proj['demoVideo']}}" 
-  title="YouTube video player" 
-  frameborder="0" 
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-  allowfullscreen>
-  </iframe> -->
-  <br/>
-  {{ proj['stack'] }}
-  <br/>
-  {{ proj['problem'] }}
-  <br/>
-  {{ proj['solution'] }}
-  <br/>
-  <!-- <a href="{{ proj['demoVideo']}}" target="_new">Video Link</a> -->
-  <div *ngIf="proj['openSource']">
-     <a href="{{ proj['repoLink'] }}" target="_new">Repo Link</a>
-  </div>
-  <div *ngIf="!proj['openSource']">
-    <em>This project is not open source</em>
-  </div>
-  <hr class="project-break"/>
-</div>
-</div>
+<section *ngIf='error'>{{ error }}</section>
+<section class="container">
+  <article class="center-block" *ngFor="let proj of projectArray">
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar='https://i.ebayimg.com/images/g/r7AAAOSwq4hZ4C-c/s-l640.jpg'></div>
+      <section>
+        {{proj['name']}}
+      </section>
+    </mat-card-header>
+    <mat-card-subtitle>
+      <section>
+        {{ proj['stack'] }}
+      </section>
+    </mat-card-subtitle>
+
+    <mat-card-content>
+      <app-video-embedder [vidoeUrl]=proj></app-video-embedder>
+    <section>
+      {{ proj['problem'] }}
+    </section>
+    <section>
+      {{ proj['solution'] }}
+    </section>
+
+
+    <section *ngIf="proj['openSource'] == false; else notOpen">
+      <button mat-icon-button color='primary'>
+        <a href=''>
+        <mat-icon>home</mat-icon>
+      </a>
+      </button>
+      <button mat-icon-button color='primary'>
+        <a href>
+        <mat-icon>favorite</mat-icon>
+      </a>
+      </button>
+      <button mat-icon-button color='primary'>
+        <a href='https://linkedin.com' target="_blank">
+        <mat-icon>open_in_new</mat-icon>
+        </a>
+      </button>
+     <!-- <a href="{{ proj['repoLink'] }}" target="_new">Repo Link</a> -->
+    </section>
+    <ng-template #notOpen>
+      <section>
+        <em>This project is not open source</em>
+      </section>
+    </ng-template>
+    </mat-card-content>
+
+    <mat-card-footer>
+
+    </mat-card-footer>
+  </mat-card>
+  </article>
+</section>
